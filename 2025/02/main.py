@@ -1,19 +1,23 @@
 import os
+from collections.abc import Callable
 
-
-def parse_input(input_path: str):
+def parse_input(input_path: str) -> list[tuple[int, int]]:
     path = os.path.join(os.path.dirname(__file__), input_path)
     content = ""
     with open(path) as f:
         content = f.read()
 
     content = content.strip()
-    ranges = [tuple(map(int, r.split("-"))) for r in content.split(",")]
+    ranges = [
+        (int(start), int(end))
+        for part in content.split(",")
+        for start, end in [part.split("-", 1)]
+    ]
 
     return ranges
 
 
-def invalid_ids_1(range_boundaries):
+def invalid_ids_1(range_boundaries: tuple[int, int]) -> list[int]:
     (first, last) = range_boundaries
 
     invalid_ids = []
@@ -29,7 +33,7 @@ def invalid_ids_1(range_boundaries):
     return invalid_ids
 
 
-def invalid_ids_2(range_boundaries):
+def invalid_ids_2(range_boundaries: tuple[int, int]) -> list[int]:
     (first, last) = range_boundaries
 
     invalid_ids = []
@@ -46,7 +50,10 @@ def invalid_ids_2(range_boundaries):
     return invalid_ids
 
 
-def sum_invalid_ids(ranges, invalid_id_rule):
+def sum_invalid_ids(
+    ranges: list[tuple[int, int]],
+    invalid_id_rule: Callable[[tuple[int, int]], list[int]],
+) -> int:
     total_invalid_ids = []
     for range_boundaries in ranges:
         ids = invalid_id_rule(range_boundaries)
@@ -56,7 +63,7 @@ def sum_invalid_ids(ranges, invalid_id_rule):
     return sum(total_invalid_ids)
 
 
-def main():
+def main() -> None:
     input_path = "input.txt"
     ranges = parse_input(input_path)
 
