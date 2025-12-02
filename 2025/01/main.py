@@ -1,8 +1,7 @@
 import os
-from typing import List, Tuple
 
 
-def parse_input(input_path: str) -> List[int]:
+def parse_input(input_path: str) -> list[int]:
     path = os.path.join(os.path.dirname(__file__), input_path)
     content = ""
     with open(path) as doc:
@@ -14,8 +13,8 @@ def parse_input(input_path: str) -> List[int]:
 
 
 def execute_rotations(
-    rotations: List[int], starting_position: int, dial_size: int = 99
-) -> List[Tuple[int, int]]:
+    rotations: list[int], starting_position: int, dial_size: int = 99
+) -> list[tuple[int, int]]:
     if starting_position > dial_size:
         return []
 
@@ -45,7 +44,7 @@ def execute_rotations(
     return positions
 
 
-def get_passwords(positions: List[Tuple[int, int]]) -> Tuple[int, int]:
+def get_passwords(positions: list[tuple[int, int]]) -> tuple[int, int]:
     end_positions = list(map(lambda p: p[0], positions))
     zero_crossings_count = list(map(lambda p: p[1], positions))
 
