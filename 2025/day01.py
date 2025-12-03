@@ -1,14 +1,8 @@
-import os
+from util import pretty_print, read_input
 
 
-def parse_input(input_path: str) -> list[int]:
-    path = os.path.join(os.path.dirname(__file__), input_path)
-    content = ""
-    with open(path) as doc:
-        content = doc.read()
-
-    content = content.strip()
-    rotations = [int(r.replace("L", "-").replace("R", "")) for r in content.split("\n")]
+def parse_input(input: list[str]) -> list[int]:
+    rotations = [int(r.replace("L", "-").replace("R", "")) for r in input]
     return rotations
 
 
@@ -54,21 +48,14 @@ def get_passwords(positions: list[tuple[int, int]]) -> tuple[int, int]:
 
 
 def main() -> None:
-    input_path: str = "inputs/day01.txt"
     dial_starting_positions: int = 50
 
-    rotations = parse_input(input_path)
+    rotations = parse_input(read_input(1))
     positions = execute_rotations(rotations, dial_starting_positions)
 
     password_1, password_2 = get_passwords(positions)
 
-    # Pretty print answers
-    print("===== Advent of Code =====")
-    print("Day 1: Secret Entrance")
-    print("--------------------------")
-    print("Password (Part 1):", password_1)
-    print("Password (Part 2):", password_2)
-    print("--------------------------")
+    pretty_print([password_1, password_2], "Day 1: Secret Entrance")
 
 
 if __name__ == "__main__":

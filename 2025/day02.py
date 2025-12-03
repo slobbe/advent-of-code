@@ -1,17 +1,13 @@
-import os
 from collections.abc import Callable
 
+from util import pretty_print, read_input
 
-def parse_input(input_path: str) -> list[tuple[int, int]]:
-    path = os.path.join(os.path.dirname(__file__), input_path)
-    content = ""
-    with open(path) as f:
-        content = f.read()
 
-    content = content.strip()
+def parse_input(input: str) -> list[tuple[int, int]]:
+    input = input.strip()
     ranges = [
         (int(start), int(end))
-        for part in content.split(",")
+        for part in input.split(",")
         for start, end in [part.split("-", 1)]
     ]
 
@@ -65,19 +61,12 @@ def sum_invalid_ids(
 
 
 def main() -> None:
-    input_path = "inputs/day02.txt"
-    ranges = parse_input(input_path)
+    ranges = parse_input(read_input(2)[0])
 
-    sum_rule_1 = sum_invalid_ids(ranges, invalid_ids_1)
-    sum_rule_2 = sum_invalid_ids(ranges, invalid_ids_2)
+    sum_1 = sum_invalid_ids(ranges, invalid_ids_1)
+    sum_2 = sum_invalid_ids(ranges, invalid_ids_2)
 
-    # Pretty print answers
-    print("===== Advent of Code =====")
-    print("Day 2: Gift Shop")
-    print("--------------------------")
-    print("Invalid IDs sum (Part 1):", sum_rule_1)
-    print("Invalid IDs sum (Part 2):", sum_rule_2)
-    print("--------------------------")
+    pretty_print([sum_1, sum_2], "Day 2: Gift Shop")
 
 
 if __name__ == "__main__":

@@ -1,18 +1,6 @@
-import os
 from collections.abc import Callable
 
-
-def parse_input(input_path: str) -> list[str]:
-    path = os.path.join(os.path.dirname(__file__), input_path)
-    content = ""
-    with open(path) as f:
-        content = f.read()
-
-    content = content.strip()
-
-    banks = content.split("\n")
-
-    return banks
+from util import pretty_print, read_input
 
 
 def largest_joltage_1(bank: str) -> int:
@@ -48,18 +36,11 @@ def total_joltage(banks: list[str], largest_joltage: Callable[[str], int]) -> in
 
 
 def main() -> None:
-    input_path = "inputs/day03.txt"
-    banks = parse_input(input_path)
+    banks = read_input(3)
     joltage_1 = total_joltage(banks, largest_joltage_1)
     joltage_2 = total_joltage(banks, largest_joltage_2)
 
-    # Pretty print answers
-    print("===== Advent of Code =====")
-    print("Day 3: Lobby")
-    print("--------------------------")
-    print("Total output joltage (Part 1):", joltage_1)
-    print("Total output joltage (Part 2):", joltage_2)
-    print("--------------------------")
+    pretty_print([joltage_1, joltage_2], "Day 3: Lobby")
 
 
 if __name__ == "__main__":
