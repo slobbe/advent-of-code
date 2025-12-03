@@ -1,6 +1,7 @@
 import os
 from collections.abc import Callable
 
+
 def parse_input(input_path: str) -> list[tuple[int, int]]:
     path = os.path.join(os.path.dirname(__file__), input_path)
     content = ""
@@ -64,7 +65,7 @@ def sum_invalid_ids(
 
 
 def main() -> None:
-    input_path = "input.txt"
+    input_path = "inputs/day02.txt"
     ranges = parse_input(input_path)
 
     sum_rule_1 = sum_invalid_ids(ranges, invalid_ids_1)

@@ -54,7 +54,7 @@ def get_passwords(positions: list[tuple[int, int]]) -> tuple[int, int]:
 
 
 def main() -> None:
-    input_path: str = "input.txt"
+    input_path: str = "inputs/day01.txt"
     dial_starting_positions: int = 50
 
     rotations = parse_input(input_path)

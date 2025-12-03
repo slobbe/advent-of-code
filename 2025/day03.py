@@ -9,6 +9,7 @@ def parse_input(input_path: str) -> list[str]:
         content = f.read()
 
     content = content.strip()
+
     banks = content.split("\n")
 
     return banks
@@ -47,7 +48,7 @@ def total_joltage(banks: list[str], largest_joltage: Callable[[str], int]) -> in
 
 
 def main() -> None:
-    input_path = "input.txt"
+    input_path = "inputs/day03.txt"
     banks = parse_input(input_path)
     joltage_1 = total_joltage(banks, largest_joltage_1)
     joltage_2 = total_joltage(banks, largest_joltage_2)
