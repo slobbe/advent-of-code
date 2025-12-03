@@ -1,3 +1,4 @@
+from collections.abc import Callable
 import os
 
 
@@ -12,7 +13,7 @@ def parse_input(input_path: str) -> list[str]:
 
     return banks
 
-def largest_joltage(bank: str) -> int:
+def largest_joltage_1(bank: str) -> int:
     digits = list(bank)
     first = max(digits[:-1])
     index_first = digits.index(first)
@@ -21,21 +22,39 @@ def largest_joltage(bank: str) -> int:
 
     return int(first+second)
 
-def total_joltage(banks: list[str]) -> int:
+def largest_joltage_2(bank: str) -> int:
+    digits = list(bank)
+
+    d = []
+    k = 0
+    for i in range(12):
+        j = i - 11
+        search_digits = digits[k:] if j == 0 else digits[k:j]
+        largest_digit = max(search_digits)
+        largest_digit_index = search_digits.index(largest_digit)
+        k += largest_digit_index + 1
+        d.append(largest_digit)
+
+    return int("".join(d))
+
+def total_joltage(banks: list[str], largest_joltage: Callable[[str], int]) -> int:
     max_jolts = [largest_joltage(bank) for bank in banks]
+    print(max_jolts)
 
     return sum(max_jolts)
 
 def main() -> None:
     input_path = "input.txt"
     banks = parse_input(input_path)
-    joltage = total_joltage(banks)
+    joltage_1 = total_joltage(banks, largest_joltage_1)
+    joltage_2 = total_joltage(banks, largest_joltage_2)
 
     # Pretty print answers
     print("===== Advent of Code =====")
     print("Day 3: Lobby")
     print("--------------------------")
-    print("Total output joltage (Part 1):", joltage)
+    print("Total output joltage (Part 1):", joltage_1)
+    print("Total output joltage (Part 2):", joltage_2)
     print("--------------------------")
 
 
