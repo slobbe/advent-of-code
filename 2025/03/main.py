@@ -1,5 +1,5 @@
-from collections.abc import Callable
 import os
+from collections.abc import Callable
 
 
 def parse_input(input_path: str) -> list[str]:
@@ -13,14 +13,16 @@ def parse_input(input_path: str) -> list[str]:
 
     return banks
 
+
 def largest_joltage_1(bank: str) -> int:
     digits = list(bank)
     first = max(digits[:-1])
     index_first = digits.index(first)
 
-    second = max(digits[(index_first + 1):])
+    second = max(digits[(index_first + 1) :])
 
-    return int(first+second)
+    return int(first + second)
+
 
 def largest_joltage_2(bank: str) -> int:
     digits = list(bank)
@@ -37,11 +39,12 @@ def largest_joltage_2(bank: str) -> int:
 
     return int("".join(d))
 
+
 def total_joltage(banks: list[str], largest_joltage: Callable[[str], int]) -> int:
     max_jolts = [largest_joltage(bank) for bank in banks]
-    print(max_jolts)
 
     return sum(max_jolts)
+
 
 def main() -> None:
     input_path = "input.txt"
