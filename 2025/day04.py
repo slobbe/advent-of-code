@@ -1,9 +1,9 @@
-from util import pretty_print, read_input
+from util import Input, pretty_print, read_input
 
 type Map = list[list[int]]
 
 
-def get_map(input: list[str]) -> Map:
+def get_map(input: Input) -> Map:
     return [list(map(lambda loc: 1 if loc == "@" else 0, list(r))) for r in input]
 
 

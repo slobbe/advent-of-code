@@ -1,7 +1,7 @@
-from util import pretty_print, read_input
+from util import Input, pretty_print, read_input
 
 
-def parse_input(input: list[str]) -> list[int]:
+def parse_input(input: Input) -> list[int]:
     rotations = [int(r.replace("L", "-").replace("R", "")) for r in input]
     return rotations
 

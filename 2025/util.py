@@ -3,8 +3,10 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 INPUT_DIR = ROOT / "inputs"
 
+type Input = list[str]
 
-def read_input(day: int, is_test: bool = False) -> list[str]:
+
+def read_input(day: int, is_test: bool = False) -> Input:
     file_ext = ".test.txt" if is_test else ".txt"
     day_num = str(day).zfill(2)
     file_name = f"day{day_num}{file_ext}"
@@ -13,7 +15,7 @@ def read_input(day: int, is_test: bool = False) -> list[str]:
     return path.read_text(encoding="utf-8").rstrip("\n").splitlines()
 
 
-def pretty_print(answers: list, topic: str) -> None:
+def pretty_print(answers: list[int], topic: str) -> None:
     print("***** Advent of Code *****")
     print(f" {topic} ".center(26, " "))
     print("**************************")
