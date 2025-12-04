@@ -16,10 +16,12 @@ def read_input(day: int, is_test: bool = False) -> Input:
 
 
 def pretty_print(answers: list[int], topic: str) -> None:
-    print("***** Advent of Code *****")
-    print(f" {topic} ".center(26, " "))
-    print("**************************")
+    year = ROOT.name
+    width = 31
+    print(f" Advent of Code {year} ".center(width, "*"))
+    print(topic.center(width, " "))
+    print(width * "*")
     for i, answer in enumerate(answers):
         print(f" Part {i + 1}:", answer)
 
-    print("**************************")
+    print(width * "*")
