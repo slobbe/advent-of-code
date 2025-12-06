@@ -1,4 +1,3 @@
-import math
 import re
 
 from util import Input, pretty_print, read_input
@@ -44,7 +43,7 @@ def get_math_problems_2(input: Input) -> list[MathProblem]:
 def solve_math_problems(problems: list[MathProblem]) -> list[int]:
     results = []
     for op, nums in problems:
-        result = math.prod(nums) if op == "*" else sum(nums)
+        result = eval(op.join(map(str, nums)))
         results.append(result)
 
     return results
