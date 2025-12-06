@@ -1,19 +1,14 @@
-import re
-
 from util import Input, pretty_print, read_input
 
 type MathProblem = tuple[str, list[int]]
 
 
 def get_math_problems_1(input: Input) -> list[MathProblem]:
-    def clean(row):
-        return re.sub(r"\s+", " ", row.strip())
-
     def transpose(matrix):
         return list(map(list, zip(*matrix)))
 
-    operators = clean(input[-1]).split(" ")
-    numbers = transpose([list(map(int, clean(r).split(" "))) for r in input[:-1]])
+    operators = input[-1].strip().split()
+    numbers = transpose([list(map(int, r.strip().split())) for r in input[:-1]])
 
     return list(zip(operators, numbers))
 
