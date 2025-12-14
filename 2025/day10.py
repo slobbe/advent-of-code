@@ -1,7 +1,7 @@
 from collections import deque
-from itertools import combinations, permutations, product
 
 import numpy as np
+import z3
 from util import Input, pretty_print, read_input
 
 
@@ -77,12 +77,46 @@ def press_buttons(machine):
     return None
 
 
+def least_presses_joltages(machines):
+    least_presses = []
+    for machine in machines:
+        presses = solve_joltage(machine)
+        least_presses.append(sum(presses) if presses is not None else 0)
+
+    return least_presses
+
+
+def solve_joltage(machine):
+    joltages = np.array(machine["joltages"], dtype=int)
+    buttons = get_matrix(machine["buttons"], len(joltages)).T
+    m, n = buttons.shape
+
+    opt = z3.Optimize()
+
+    x = [z3.Int(f"x{j}") for j in range(n)]
+    for v in x:
+        opt.add(v >= 0)
+
+    for i in range(m):
+        opt.add(
+            z3.Sum([(int(buttons[i, j]) * x[j]) for j in range(n)]) == int(joltages[i])
+        )
+
+    opt.minimize(z3.Sum(x))
+    if opt.check() != z3.sat:
+        return None
+
+    model = opt.model()
+    return np.array([model[v].as_long() for v in x], dtype=int)
+
+
 def main() -> None:
-    machines = get_machines(read_input(10, False))
+    machines = get_machines(read_input(10))
 
     p_1 = sum(least_button_presses(machines))
+    p_2 = sum(least_presses_joltages(machines))
 
-    pretty_print([p_1], "Day 10: Factory")
+    pretty_print([p_1, p_2], "Day 10: Factory")
 
 
 if __name__ == "__main__":
